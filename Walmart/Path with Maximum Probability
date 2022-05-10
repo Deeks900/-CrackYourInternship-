@@ -1,0 +1,45 @@
+class Solution {
+public:
+    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
+        //Making the graph
+        vector<vector<pair<int, double>>> graph(n, vector<pair<int, double>>());
+        for(int i = 0; i < edges.size(); i++){
+            graph[edges[i][0]].push_back({edges[i][1], succProb[i]});
+            graph[edges[i][1]].push_back({edges[i][0], succProb[i]});
+        }
+        
+        double* probability = new double[n];
+        bool* visited = new bool[n];
+        priority_queue<pair<double, int>> maxProb;
+        
+        for(int i = 0; i < n; i++){
+            visited[i] = false;
+            probability[i] = (0.00);
+        }
+        
+        probability[start] = 1.00;
+        maxProb.push({1.00, start});
+        
+        while(!maxProb.empty()){
+            int maxIndex = maxProb.top().second;
+            maxProb.pop();
+            visited[maxIndex] = true;
+            
+            if(maxIndex == end){
+                return probability[maxIndex];
+            }
+            
+           
+            for(auto i: graph[maxIndex]){
+                if(!visited[i.first]){
+                    double dist = (probability[maxIndex]*i.second);
+                    probability[i.first] = (dist>probability[i.first] ? dist : probability[i.first]);
+                    maxProb.push({probability[i.first], i.first});
+                }
+               
+            }
+        }
+        
+        return 0;
+    }
+};
