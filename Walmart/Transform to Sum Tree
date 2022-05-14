@@ -1,0 +1,25 @@
+class Solution {
+  public:
+  
+    int helper(Node* root){
+        //Base Case
+        if(root == NULL){
+            return 0;
+        }
+        
+        //Recursive Calls
+        int ownValue = root->data;
+        int ans1 = helper(root->left);
+        int ans2 = helper(root->right);
+        int finalSum = (ans1+ans2);
+        root->data = finalSum;
+        return (finalSum+ownValue);
+    }
+    // Convert a given tree to a tree where every node contains sum of values of
+    // nodes in left and right subtrees in the original tree
+    void toSumTree(Node *node)
+    {
+        // Your code here
+        helper(node);
+    }
+};
