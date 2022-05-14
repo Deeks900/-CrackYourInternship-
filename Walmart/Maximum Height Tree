@@ -1,0 +1,20 @@
+public:
+    int height(int N){
+        if(N == 0){
+            return 0;
+        }
+        
+        // code here
+        int num = 2*N;
+        int n1 = (-1+sqrt(1+4*num))/2;
+        int n2 = (-1-sqrt(1+4*num))/2;
+        
+        if(n1 >= 0){
+          return n1;   
+        }
+        else{
+          return n2;  
+        }
+        
+    }
+};
