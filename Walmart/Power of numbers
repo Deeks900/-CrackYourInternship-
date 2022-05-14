@@ -1,0 +1,26 @@
+class Solution{
+    public:
+    //You need to complete this fucntion
+    const long long n = 1e9+7;
+    long long power(int N,int R)
+    {
+       //Your code here
+       if(R == 0){
+           return 1;
+       }
+       
+       if(N == 0){
+           return 0;
+       }
+       
+       long long temp = (power(N, R/2)%n);
+       long long ans = ((temp*temp)%n);
+       if(R%2 != 0){
+           long long ans2 = ((ans*(N%n))%n);
+           return ans2;
+       }
+       
+       return ans; 
+    }
+
+};
