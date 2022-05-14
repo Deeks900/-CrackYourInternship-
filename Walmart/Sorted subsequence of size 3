@@ -1,0 +1,46 @@
+class Solution{
+  public:
+    vector<int> find3Numbers(vector<int> arr, int N) {
+        // Your code here
+        int size = arr.size();
+        vector<int> smallIndex(size, -1);
+        vector<int> largerIndex(size, -1);
+        
+        smallIndex[0] = -1;
+        largerIndex[size-1] = -1;
+        int minE = 0;
+        int maxE = size-1;
+        
+        for(int i = 1; i < size; i++){
+            if(arr[i] <= arr[minE]){
+                minE = i;
+                smallIndex[i] = -1;
+            }
+            else{
+                smallIndex[i] = minE;
+            }
+        }
+        
+        for(int i = size-2; i >= 0; i--){
+             if(arr[i] >= arr[maxE]){
+                maxE = i;
+                largerIndex[i] = -1;
+            }
+            else{
+                largerIndex[i] = maxE;
+            }
+        }
+        
+        vector<int> ans;
+        for(int i = 0; i < size; i++){
+            if(smallIndex[i] != -1 && largerIndex[i] != -1){
+                ans.push_back(arr[smallIndex[i]]);
+                ans.push_back(arr[i]);
+                ans.push_back(arr[largerIndex[i]]);
+                break;
+            }
+        }
+        
+        return ans;
+    }
+};
