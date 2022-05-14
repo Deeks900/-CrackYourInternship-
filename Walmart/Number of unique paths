@@ -1,0 +1,28 @@
+class Solution
+{
+    public:
+    int numberHelper(int startX, int startY, int endX, int endY){
+        //Base Case
+        if(startX == endX && startY == endY){
+            return 1;
+        }
+        
+        if((startX > endX) || (startY > endY)){
+            return 0;
+        }
+        
+        //Recursive Calls
+        int option1 = numberHelper(startX+1, startY, endX, endY);
+        int option2 = numberHelper(startX, startY+1, endX, endY);
+        
+        int ans = (option1+option2);
+        return ans;
+    }
+    
+    //Function to find total number of unique paths.
+    int NumberOfPath(int a, int b)
+    {
+        //code here
+        return numberHelper(0, 0, a-1, b-1);
+    }
+};
