@@ -1,0 +1,29 @@
+class Solution {
+public:
+    double radius;
+    double x_center;
+    double y_center;
+    
+    Solution(double radius, double x_center, double y_center) {
+      this->radius = radius;
+      this->x_center = x_center;
+      this->y_center = y_center;
+      srand(time(0));
+    }
+   
+    double randomPoints(){
+        return (double)(rand())/RAND_MAX;
+    }
+    
+    vector<double> randPoint(){
+        
+        vector<double> ans;
+        double deg = 360*randomPoints();
+        double len = sqrt(randomPoints())*radius;
+        double x = x_center+len*cos(deg);
+        double y = y_center+len*sin(deg);
+        ans.push_back(x);
+        ans.push_back(y);
+        return ans;
+    }
+};
