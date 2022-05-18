@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<int> recoverArray(int n, vector<int>& sums) {
+      
+        vector<int> result;
+        sort(sums.begin(), sums.end());
+        
+        while(sums.size() > 1){
+            int x = sums[sums.size()-1]-sums[sums.size()-2];
+           
+            unordered_map<int, int> countElement;
+         
+            for(auto s: sums){
+                countElement[s] += 1;
+            }
+            vector<int> includingX;
+            vector<int> excludingX;
+            
+            for(auto i: sums){
+                if(countElement[i] > 0){
+                    excludingX.push_back(i);
+                    includingX.push_back(i+x);
+                    countElement[i] -= 1;
+                    countElement[i+x] -= 1;
+                }
+            }
+            
+            if(find(includingX.begin(), includingX.end(), 0) != includingX.end()){
+                sums = includingX;
+                result.push_back((-1*x));
+            }
+            else{
+                sums = excludingX;
+                result.push_back(x);
+            }
+            
+        }
+        
+        return result;
+    }
+};
