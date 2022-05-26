@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        //Edge Case 1 
+        if(dividend == INT_MIN && divisor == -1){
+            return INT_MAX;
+        }
+        
+        //Edge Case 2 
+         if(dividend == INT_MIN && divisor == 1){
+            return INT_MIN;
+        }
+        
+        //Decide sign
+        bool sign = true;
+        if((dividend ^ divisor) < 0){
+            sign = false;
+        }
+        
+        long dividendP = abs(dividend);
+        long divisorP = abs(divisor);
+        int quotient = 0;
+        
+        while(dividendP >= divisorP){
+            long temp = divisorP, m = 1;
+            while((temp<<1) <= dividendP){
+                temp = temp << 1;
+                m <<= 1;
+            }
+            dividendP -= temp;
+            quotient += m;
+        }
+        
+        if(sign == false){
+            quotient  = -quotient;
+        }
+        
+        return quotient;
+    }
+};
