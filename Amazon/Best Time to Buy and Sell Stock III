@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int maxProfitHelper(vector<int>& prices, bool canBuy, int k, int idx, vector<vector<vector<int>>>& mem){
+        //Base Case
+        if(idx == prices.size() || k == 2){
+            return 0;
+        }
+        
+        if(mem[idx][canBuy][k] != -1){
+            return mem[idx][canBuy][k] ;
+        }
+        
+        int ans = 0;
+        int ans1 = 0, ans2 = 0, ans3 = 0, ans4 = 0;
+        
+        //Recursive Calls
+        if(canBuy){
+          ans1 = (maxProfitHelper(prices, false, k, idx+1, mem)-prices[idx]);
+          ans2 = maxProfitHelper(prices, true, k, idx+1, mem);
+        }
+        else{
+            ans3 = (maxProfitHelper(prices, true, k+1, idx+1, mem)+prices[idx]);
+            ans4 = maxProfitHelper(prices, false, k, idx+1, mem); 
+        }
+        
+       int temp1 = max(ans1, ans2);
+       int temp2 = max(ans3, ans4);
+        ans = max(temp1, temp2);
+        mem[idx][canBuy][k] = ans;
+        return ans;
+    }
+    
+    int maxProfit(vector<int>& prices) {
+        vector<vector<vector<int>>> mem(prices.size(), vector<vector<int>>(2, vector<int>(2, -1)));
+        return maxProfitHelper(prices, true, 0, 0, mem);
+    }
+};
